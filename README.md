@@ -4,7 +4,7 @@
 Projects for EECS 448
 
 Here’s the instructions for creating your own local repository!
-1. Navigate to Project2 in the browser.
+1. Navigate to lynnel/448FoLife.
 2. On the right hand side, towards the bottom, you can click clone in desktop. This will download a gui for git. You are welcome to use git via command line too, but I don’t have instructions for how to do that here.
 3. Install and open the github application.
 4. Navigate to File->New Repository.
