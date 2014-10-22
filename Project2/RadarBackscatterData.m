@@ -4,10 +4,11 @@
 % Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
 MatImage = input('Please enter the file path for an MAT image, surrounded by single quotes with a file extension: ');
+%tests to make sure the image is found and loads correctly
 try    
     load(MatImage);
     imagesc((log10(A)));
-catch
+catch % if filename/path was invalid, brings user back to main menu
     fprintf('The image specified was invalid.\n');
     scriptOpen = 6;
     return
@@ -25,7 +26,7 @@ fprintf('\nMaximum for Radar Backscatter data: %f\n', maxRadarImage);
 fprintf('\n\nLightness levels require an upper and lower value.');
 fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
 fprintf('\nRequired: 0.01 - 0.99'); 
-%ensure user input is valid
+% ensure user input is valid
 lowerLight = -1;
 upperLight = -1;
 while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
@@ -80,7 +81,7 @@ figure;
 imshow(tonemappedImage) 
 
 % calculate the mean, standard deviation, and signal to noise ratio
-aveToned = (redToned/3) + (greenToned/3) + (blueToned/3);
+aveToned = tonemappedImage(:);
 imageMean = mean(aveToned(:));
 imageStdDev = std(double(aveToned(:)));
 r = imageMean / imageStdDev;

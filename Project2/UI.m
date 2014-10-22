@@ -1,14 +1,11 @@
+% EECS 448
+% Homework 3, group project
+% 29 October 2014
+% Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
-%is there a way to remove need for single quotes? 
+scriptOpen = 0;
+while (scriptOpen ~= 5) 
 
-%i was just testing a while loop. we can find a cuter way to do this soon. 
-scriptOpen = 'F';
-
-
-while (scriptOpen ~= 1) 
-
-%simple menu? needs to be exact and surrounded in single quotes. any ideas
-%on improving? 
 fprintf('\n1. Space (.FITS)');
 fprintf('\n2. Medical (.DCM)'); 
 fprintf('\n3. Natural Scene (.HDR)');
@@ -16,9 +13,9 @@ fprintf('\n4. RADAR Backscatter Data (.MAT)');
 fprintf('\n5. Exit'); 
 scriptOpen = input('\n\nWhich image do you want to convert? ');
 
-    %remove cheers, update file names. 
+    %Runs the program that the user specifies. 
     if (scriptOpen == 1) 
-        run('space.m'); 
+        run('AstronomicalImages.m'); 
 
     elseif (scriptOpen == 2)
         run('MedicalImages.m'); 
@@ -37,7 +34,7 @@ scriptOpen = input('\n\nWhich image do you want to convert? ');
         
     end
     if (scriptOpen > 0) && (scriptOpen < 5)
-        %give user option to save. 
+        %give user option to save the picture they just created
         saveSelect = false;  
         while(~saveSelect) 
             saveOption = input('\nAre you satisfied with this image? Y/N: ')
@@ -57,4 +54,3 @@ scriptOpen = input('\n\nWhich image do you want to convert? ');
     end     
 end
 
-%what else to add? 

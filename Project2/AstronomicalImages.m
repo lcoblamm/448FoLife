@@ -11,9 +11,10 @@
 %prompt user to enter file path
 fitsImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
 
+%tests to make sure the image is found and loads correctly
 try    
     I = fitsread(fitsImage);
-catch
+catch % if filename/path was invalid, brings user back to main menu
     fprintf('The image specified was invalid.\n');
     scriptOpen = 6;
     return
