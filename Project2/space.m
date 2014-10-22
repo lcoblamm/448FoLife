@@ -93,7 +93,7 @@ imshow(tonemappedImage);
 %give user option to save. 
 saveSelect = false;  
 while(~saveSelect) 
-    saveOption = input('\nAre you satisfied with this image? Y/N: ')
+    saveOption = input('\nAre you satisfied with this image? Y/N: ');
     if(saveOption == 'Y' || saveOption == 'y')
         newFileName = input('Please enter the name of your new file, surrounded by single quotes, with no file extension: '); 
         saveName = strcat(newFileName, '.jpg'); 
