@@ -5,7 +5,13 @@
 
 % prompt user to enter image file path
 DCMImage = input('Please enter the file path for a medical image, surrounded by single quotes with a file extension: ');
-I = dicomread(DCMImage);
+try    
+    I = dicomread(DCMImage);
+catch
+    fprintf('The image specified was invalid.\n');
+    scriptOpen = 6;
+    return
+end
 
 % calculate and print minimum and maximum intensity values 
 DCMv = I(:);

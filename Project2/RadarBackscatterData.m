@@ -4,13 +4,14 @@
 % Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
 MatImage = input('Please enter the file path for an MAT image, surrounded by single quotes with a file extension: ');
-k = strfind(MatImage, '.mat');
-if k == []
-    fprintf('The file name specified did not have a .mat file extension.\nStart over.\n');
-    exit;
-end    
-load(MatImage);
-imagesc((log10(A)));
+try    
+    load(MatImage);
+    imagesc((log10(A)));
+catch
+    fprintf('The image specified was invalid.\n');
+    scriptOpen = 6;
+    return
+end
 colormap(gray);
 
 % calculate and print average minimum and average maximum intensity values 

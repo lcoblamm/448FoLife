@@ -10,7 +10,14 @@
 
 %prompt user to enter file path
 fitsImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
-I = fitsread(fitsImage);
+
+try    
+    I = fitsread(fitsImage);
+catch
+    fprintf('The image specified was invalid.\n');
+    scriptOpen = 6;
+    return
+end
 
 %calculate maximum and minimum intensity values
 %IT IS RETURNING NEGATIVE THIS DOES NOT BODE WELL

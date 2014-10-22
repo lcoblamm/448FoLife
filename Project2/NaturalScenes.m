@@ -5,7 +5,13 @@
 
 % prompt user to enter image file path
 HDRImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
-I = hdrread(HDRImage);
+try    
+    I = hdrread(HDRImage);
+catch
+    fprintf('The image specified was invalid.\n');
+    scriptOpen = 6;
+    return
+end
 
 % calculate and print average minimum and average maximum intensity values 
 redHDR = I(:,:,1);
@@ -21,7 +27,7 @@ fprintf('\nAverage maximum for HDR image: %f', maxHDR);
 % prompt user to enter lightness values
 fprintf('\n\nLightness levels require an upper and lower value.');
 fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
-fprintf('\nRequired: 0.01 - 0.99'); 
+fprintf('\nRequired: 0.01 - 0.99hdrread(HDRImage);'); 
 lowerLight = input('\nPlease enter the lower light value: ');
 upperLight = input('Please enter the upper light value: ');
 
