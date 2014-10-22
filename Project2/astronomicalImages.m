@@ -74,7 +74,7 @@ fits3(:,:,1) = T;
 fits3(:,:,2) = T;
 fits3(:,:,3) = T;
 
-%tone mappe image
+%tone mapped image
 tonemappedImage = tonemap(fits3, 'AdjustLightness', [lowerLight upperLight], 'AdjustSaturation', saturation ,'NumberOfTiles', [lowerTiles upperTiles]); 
 
 %calculate mean, standard deviation and signal-to-noise ratio
