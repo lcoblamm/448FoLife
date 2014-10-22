@@ -9,37 +9,33 @@ while (scriptOpen ~= 'E')
 
 %simple menu? needs to be exact and surrounded in single quotes. any ideas
 %on improving? 
-fprintf('\nA. Space (.FITS)');
-fprintf('\nB. Medical (.DCM)'); 
-fprintf('\nC. Natural Scene (.HDR)');
-fprintf('\nD. RADAR Backscatter Data (.MAT'); 
-fprintf('\nE. Exit'); 
+fprintf('\n1. Space (.FITS)');
+fprintf('\n2. Medical (.DCM)'); 
+fprintf('\n3. Natural Scene (.HDR)');
+fprintf('\n4. RADAR Backscatter Data (.MAT)'); 
+fprintf('\n5. Exit'); 
 scriptOpen = input('\n\nWhich image do you want to convert? ');
 
-%remove cheers, update file names. 
-if (scriptOpen == 'A') 
-    fprintf('Whoohoo! \n\n');
-    run('space.m'); 
-    
-elseif (scriptOpen == 'B')
-    fprintf ('Yippee! \n\n');
-    %run('medical.m'); 
-     
-elseif (scriptOpen == 'C')
-    fprintf('Hooray! \n\n'); 
-    %run('radar.m'); 
-        
-elseif (scriptOpen == 'D')
-    fprintf('Hurrah! \n\n'); 
-    %run('naturalscenes.m'); 
-        
-elseif (scriptOpen == 'E')
-    fprintf('Goodbye! \n\n'); 
-        
-else 
-   fprintf('Invalid Input. Please Try Again\n'); 
+    %remove cheers, update file names. 
+    if (scriptOpen == 1) 
+        run('space.m'); 
 
-end
+    elseif (scriptOpen == 2)
+        run('MedicalImages.m'); 
+
+    elseif (scriptOpen == 3) 
+        run('NaturalScenes.m'); 
+
+    elseif (scriptOpen == 4) 
+        run('RadarBackscatterData.m'); 
+
+    elseif (scriptOpen == 5)
+        fprintf('Goodbye! \n\n'); 
+
+    else 
+       fprintf('Invalid Input. Please Try Again\n'); 
+
+    end
 
 end
 

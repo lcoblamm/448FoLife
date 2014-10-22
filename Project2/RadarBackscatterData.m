@@ -3,18 +3,17 @@
 % 10 October 2014
 % Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
-load may09_03.022-may09_03.027.mat;
+% load may09_03.022-may09_03.027.mat;
+
+MatImage = input('Please enter the file path for an MAT image, surrounded by single quotes with a file extension: ');
+load(MatImage);
 
 imagesc((log10(A)));
-radarImage = colormap(gray);
+colormap(gray);
 % radarImage = imagesc(radarI.Data);
 
 % calculate and print average minimum and average maximum intensity values 
-% redHDR = radarImage(:,:,1);
-% greenHDR = radarImage(:,:,2);
-% blueHDR = radarImage(:,:,3);
-% aveHDR = (redHDR/3) + (greenHDR/3) + (blueHDR/3);
-aveRadarImage = radarImage(:);
+aveRadarImage = A(:);
 minRadarImage = min(aveRadarImage);
 maxRadarImage = max(aveRadarImage);
 fprintf('\nMinimum for Radar Backscatter data: %f', minRadarImage);
@@ -40,28 +39,23 @@ fprintf('\nRequired: > 1');
 lowerTiles = input('\nPlease enter the number of tile rows: ');
 upperTiles = input('Please enter the number of tile columns: ');
 
-% radarImageTM(:,:,1) = radarImage;
-% radarImageTM(:,:,2) = radarImage;
-% radarImageTM(:,:,3) = radarImage;
-radarImageTM = radarImage;
-radarImageTM(:,:,2) = radarImage;
-radarImageTM(:,:,3) = radarImage;
+%
+radarImageTM = A;
+radarImageTM(:,:,2) = A;
+radarImageTM(:,:,3) = A;
 
 % tone map image and display
 tonemappedImage = tonemap(radarImageTM,'AdjustLightness', [lowerLight upperLight], 'AdjustSaturation', saturation ,'NumberOfTiles', [lowerTiles upperTiles]);
 figure;
 imshow(tonemappedImage) 
-% 
-% % calculate the mean, standard deviation, and signal to noise ratio
-% redToned = tonemappedImage(:, :, 1);
-% greenToned = tonemappedImage(:, :, 2);
-% blueToned = tonemappedImage(:, :, 3);
-% aveToned = (redToned/3) + (greenToned/3) + (blueToned/3);
-% imageMean = mean(aveToned(:));
-% imageStdDev = std(double(aveToned(:)));
-% r = imageMean / imageStdDev;
-% imageSNR = 20 * log10(r);
-% fprintf('\n\nMean of the tonemapped image: %f', imageMean);
-% fprintf('\nStandard Deviation of the tonemapped image: %f', imageStdDev);
-% fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
-% fprintf('\nHave a nice day!\n');
+
+% calculate the mean, standard deviation, and signal to noise ratio
+aveToned = (redToned/3) + (greenToned/3) + (blueToned/3);
+imageMean = mean(aveToned(:));
+imageStdDev = std(double(aveToned(:)));
+r = imageMean / imageStdDev;
+imageSNR = 20 * log10(r);
+fprintf('\n\nMean of the tonemapped image: %f', imageMean);
+fprintf('\nStandard Deviation of the tonemapped image: %f', imageStdDev);
+fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
+fprintf('\nHave a nice day!\n');
