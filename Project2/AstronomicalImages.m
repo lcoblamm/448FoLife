@@ -3,16 +3,11 @@
 % 29 October 2014
 % Roxanne Calderon, Lynne Lammers, Christine Perinchery
 
-%check why negative numbers (is there a way to fix this? where are they?
-%why are they here? how can I escape them?
-
-% is there is a cuter way to do your error checking?
 
 %prompt user to enter file path
-fitsImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
-
-%tests to make sure the image is found and loads correctly
-try    
+try 
+ fitsImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: '); 
+%tests to make sure the image is found and loads correctly    
     I = fitsread(fitsImage);
 catch % if filename/path was invalid, brings user back to main menu
     fprintf('The image specified was invalid.\n');
@@ -22,11 +17,11 @@ end
 
 %calculate maximum and minimum intensity values
 %IT IS RETURNING NEGATIVE THIS DOES NOT BODE WELL
-FITSv = I(:);
-minFITS = min(FITSv);
-maxFITS = max(FITSv);
-fprintf('\nMinimum for FITS image: %f', minFITS);
-fprintf('\nMaximum for FITS image: %f', maxFITS);
+SPACEv = I(:);
+minSPACE = min(SPACEv);
+maxSPACE = max(SPACEv);
+fprintf('\nMinimum for astronomical image: %f', minSPACE);
+fprintf('\nMaximum for astronomical image: %f', maxSPACE);
 
 %ask for lower and upper lightness value. 
 fprintf('\n\nLightness levels require an upper and lower value.');
@@ -35,15 +30,21 @@ fprintf('\nRequired: 0.01 - 0.99');
 lowerLight = -1;
 upperLight = -1;
 %ensure user input is valid
-while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
 
-    lowerLight = input('\nPlease enter the lower light value: ');
-    upperLight = input('Please enter the upper light value: ');
-    
-    if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
+while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
+  try
+     lowerLight = input('\nPlease enter the lower light value: ');
+     upperLight = input('Please enter the upper light value: ');
+      if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
         fprintf('You have entered an incorrect value. Please follow the required paramenters\n'); 
-    end 
-end 
+      end
+   catch
+    fprintf('Please enter a number.\n'); 
+    lowerLight = -1;
+    upperLight = -1;
+  end 
+ end
+
 
 %ask for saturation
 fprintf('\nSaturation');
@@ -51,13 +52,19 @@ fprintf('\nRecommended: 1-3');
 fprintf('\nRequired: > 0'); 
 saturation = -1;
 %ensure input is valid
+
 while(saturation <= 0)
+  try
     saturation = input('\nPlease enter the saturation: ');
-    
     if(saturation <= 0)
         fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
     end
-end 
+  catch
+    fprintf('Please enter a number. \n'); 
+    saturation = -1; 
+  end 
+end
+
 
 %ask for upper and lower tiles
 fprintf('\nNumber of Tiles require two values: number of rows and number of columns');
@@ -66,15 +73,22 @@ fprintf('\nRequired: > 1');
 lowerTiles = -1;
 upperTiles = -1;
 %ensure input is valid
-while(lowerTiles <= 1 || upperTiles <= 1)
-    
-    lowerTiles = input('\nPlease enter the number of tile rows: ');
-    upperTiles = input('Please enter the number of tile columns: ');
 
-    if(lowerTiles <= 1 || upperTiles <= 1)
-        fprintf('\nYou have entered an incorrect value. Please follow the required parameters. \n'); 
-    end
+while(lowerTiles <= 1 || upperTiles <= 1)
+   try 
+     lowerTiles = input('\nPlease enter the number of tile rows: ');
+     upperTiles = input('Please enter the number of tile columns: ');
+
+       if(lowerTiles <= 1 || upperTiles <= 1) 
+          fprintf('\nYou have entered an incorrect value. Please follow the required parameters. \n'); 
+       end
+    catch
+      fprintf('\nPlease enter a number. \n'); 
+      lowerTiles = -1; 
+      upperTiles = -1; 
+    end 
 end
+
 
 %scale image to become positive
 T = (I-min(I(:))) ./ (max(I(:)-min(I(:))));
@@ -95,23 +109,7 @@ fprintf('\n\nMean of the tonemapped image: %f', imageMean);
 fprintf('\nStandard Deviation of the tonemapped image: %f', imageStdDev);
 fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
 
+fprintf('\n'); 
+
 %display image
 imshow(tonemappedImage); 
-
-%give user option to save. 
-saveSelect = false;  
-while(~saveSelect) 
-    saveOption = input('\nAre you satisfied with this image? Y/N: ');
-    if(saveOption == 'Y' || saveOption == 'y')
-        newFileName = input('Please enter the name of your new file, surrounded by single quotes, with no file extension: '); 
-        saveName = strcat(newFileName, '.jpg'); 
-        imwrite(tonemappedImage, saveName);
-        fprintf('\n You will be returned to the main menu. Thank you!'); 
-        saveSelect = true; 
-    elseif(saveOption == 'N' || saveOption == 'n')
-        fprintf('\n You will be returned to the main menu. Thank you!'); 
-        saveSelect = true; 
-    else
-        fprintf('\n You have entered an incorrect response, please try again!'); 
-    end
-end
