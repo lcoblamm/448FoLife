@@ -11,6 +11,7 @@ fprintf('\n2. Medical (.DCM)');
 fprintf('\n3. Natural Scene (.HDR)');
 fprintf('\n4. RADAR Backscatter Data (.MAT)'); 
 fprintf('\n5. Exit'); 
+try
 scriptOpen = input('\n\nWhich image do you want to convert? ');
 
     % Runs the program that the user specifies. 
@@ -37,20 +38,28 @@ scriptOpen = input('\n\nWhich image do you want to convert? ');
         % give user option to save the picture they just created
         saveSelect = false;  
         while(~saveSelect) 
+            try
             saveOption = input('\nWould you like to save this image? ''Y''/''N'': ');
-            if(saveOption == 'Y' || saveOption == 'y')
-                newFileName = input('Please enter the name of your new file, surrounded by single quotes, with no file extension: '); 
-                saveName = strcat(newFileName, '.jpg'); 
-                imwrite(tonemappedImage, saveName);
-                fprintf('\nImage saved.\n'); 
-                saveSelect = true; 
-            elseif(saveOption == 'N' || saveOption == 'n')
-                saveSelect = true; 
-                fprintf('\n');
-            else
-                fprintf('\n You have entered an incorrect response, please try again!'); 
+                if(saveOption == 'Y' || saveOption == 'y')
+                    newFileName = input('Please enter the name of your new file, surrounded by single quotes, with no file extension: '); 
+                    saveName = strcat(newFileName, '.jpg'); 
+                    imwrite(tonemappedImage, saveName);
+                    fprintf('\nImage saved.\n'); 
+                    saveSelect = true; 
+                elseif(saveOption == 'N' || saveOption == 'n')
+                    fprintf('\n');
+                    saveSelect = true; 
+                else
+                    fprintf('\n You have entered an incorrect response, please try again!'); 
+                end
+            catch
+                fprintf('This is an invalid input. Please enter one of the specified characters.'); 
             end
         end
     end     
-end
+    catch 
+       fprintf('\nPlease enter a number.\n'); 
+       scriptOpen = 0; 
+     end
+end 
 

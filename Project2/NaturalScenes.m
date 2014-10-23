@@ -4,6 +4,7 @@
 % Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
 % prompt user to enter image file path
+try
 HDRImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
 
 % check for correct file type
@@ -41,18 +42,23 @@ fprintf('\nAverage maximum for HDR image: %f', maxHDR);
 % prompt user to enter lightness values
 fprintf('\n\nLightness levels require an upper and lower value.');
 fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
-fprintf('\nRequired: 0.01 - 0.99hdrread(HDRImage);'); 
-% ensure user input is valid
+fprintf('\nRequired: 0.01 - 0.99'); 
+% ensure user input is valids
 lowerLight = -1;
 upperLight = -1;
 while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
-
+  try 
     lowerLight = input('\nPlease enter the lower light value: ');
     upperLight = input('Please enter the upper light value: ');
     
     if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
         fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
     end 
+  catch
+    fprintf('Please enter a number.\n'); 
+    lowerLight = -1;
+    upperLight = -1;
+  end 
 end 
 
 % prompt user to enter saturation value
@@ -62,11 +68,16 @@ fprintf('\nRequired: > 0');
 saturation = -1;
 % ensure input is valid
 while(saturation <= 0)
+    try
     saturation = input('\nPlease enter the saturation: ');
     
     if(saturation <= 0)
         fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
     end
+    catch
+     fprintf('Please enter a number. \n'); 
+     saturation = -1;
+    end 
 end 
 
 % prompt user to enter number of tiles
@@ -77,13 +88,18 @@ lowerTiles = -1;
 upperTiles = -1;
 % ensure input is valid
 while(lowerTiles <= 1 || upperTiles <= 1)
-    
+    try
     lowerTiles = input('\nPlease enter the number of tile rows: ');
     upperTiles = input('Please enter the number of tile columns: ');
 
     if(lowerTiles <= 1 || upperTiles <= 1)
         fprintf('\nYou have entered an incorrect value. Please follow the required parameters. \n'); 
     end
+    catch
+     fprintf('Please enter a number. \n'); 
+     lowerTiles = -1;
+     upperTiles = -1;
+    end 
 end
 
 % tone map image and display
