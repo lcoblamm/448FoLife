@@ -9,7 +9,19 @@
 % is there is a cuter way to do your error checking?
 
 %prompt user to enter file path
-fitsImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
+fitsImage = input('Please enter the file path for a FITS image, surrounded by single quotes with a file extension: ');
+
+% check for correct file type
+isFITSFile = false;
+while (~isFITSFile)
+    fitsImageExt = fitsImage(end-3:end);
+    if (~strcmp(fitsImageExt,'.fits'))
+        fprintf('The file extension was incorrect. File extension must be .fits.\n');
+        fitsImage = input('Please enter the file path for a FITS image, surrounded by single quotes with a file extension: ');
+    else
+        isFITSFile = true;
+    end
+end
 
 %tests to make sure the image is found and loads correctly
 try    
@@ -41,7 +53,7 @@ while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
     upperLight = input('Please enter the upper light value: ');
     
     if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
-        fprintf('You have entered an incorrect value. Please follow the required paramenters\n'); 
+        fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
     end 
 end 
 
@@ -97,21 +109,3 @@ fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
 
 %display image
 imshow(tonemappedImage); 
-
-%give user option to save. 
-saveSelect = false;  
-while(~saveSelect) 
-    saveOption = input('\nAre you satisfied with this image? Y/N: ');
-    if(saveOption == 'Y' || saveOption == 'y')
-        newFileName = input('Please enter the name of your new file, surrounded by single quotes, with no file extension: '); 
-        saveName = strcat(newFileName, '.jpg'); 
-        imwrite(tonemappedImage, saveName);
-        fprintf('\n You will be returned to the main menu. Thank you!'); 
-        saveSelect = true; 
-    elseif(saveOption == 'N' || saveOption == 'n')
-        fprintf('\n You will be returned to the main menu. Thank you!'); 
-        saveSelect = true; 
-    else
-        fprintf('\n You have entered an incorrect response, please try again!'); 
-    end
-end

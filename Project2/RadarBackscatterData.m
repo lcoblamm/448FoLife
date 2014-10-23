@@ -3,17 +3,32 @@
 % 29 October 2014
 % Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
-MatImage = input('Please enter the file path for an MAT image, surrounded by single quotes with a file extension: ');
-%tests to make sure the image is found and loads correctly
+MatImage = input('Please enter the file path for a MAT image, surrounded by single quotes with a file extension: ');
+
+% check for correct file type
+isMatFile = false;
+while (~isMatFile)
+    MatImageExt = MatImage(end-3:end);
+    if (~strcmp(MatImageExt,'.mat'))
+        fprintf('The file extension was incorrect. File extension must be .mat.\n');
+        MatImage = input('Please enter the file path for a MAT image, surrounded by single quotes with a file extension: ');
+    else
+        isMatFile = true;
+    end
+end
+
+% test to make sure the image is found and loads correctly
 try    
     load(MatImage);
-    imagesc((log10(A)));
+    % think we can get rid of this?
+    % imagesc((log10(A)));
 catch % if filename/path was invalid, brings user back to main menu
     fprintf('The image specified was invalid.\n');
     scriptOpen = 6;
     return
 end
-colormap(gray);
+% can we get rid of this?
+% colormap(gray);
 
 % calculate and print average minimum and average maximum intensity values 
 aveRadarImage = A(:);
@@ -35,7 +50,7 @@ while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
     upperLight = input('Please enter the upper light value: ');
     
     if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
-        fprintf('You have entered an incorrect value. Please follow the required paramenters\n'); 
+        fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
     end 
 end 
 
@@ -44,7 +59,7 @@ fprintf('\nSaturation');
 fprintf('\nRecommended: 1-3'); 
 fprintf('\nRequired: > 0'); 
 saturation = -1;
-%ensure input is valid
+% ensure input is valid
 while(saturation <= 0)
     saturation = input('\nPlease enter the saturation: ');
     
@@ -59,7 +74,7 @@ fprintf('\nRecommended: 2-4');
 fprintf('\nRequired: > 1'); 
 lowerTiles = -1;
 upperTiles = -1;
-%ensure input is valid
+% ensure input is valid
 while(lowerTiles <= 1 || upperTiles <= 1)
     
     lowerTiles = input('\nPlease enter the number of tile rows: ');
@@ -89,4 +104,5 @@ imageSNR = 20 * log10(r);
 fprintf('\n\nMean of the tonemapped image: %f', imageMean);
 fprintf('\nStandard Deviation of the tonemapped image: %f', imageStdDev);
 fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
+fprintf('\n');
 

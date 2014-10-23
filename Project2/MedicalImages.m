@@ -4,8 +4,20 @@
 % Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
 % prompt user to enter image file path
-DCMImage = input('Please enter the file path for a medical image, surrounded by single quotes with a file extension: ');
-%tests to make sure the image is found and loads correctly
+DCMImage = input('Please enter the file path for a Dicom Medical Image, surrounded by single quotes with a file extension: ');
+
+% check for correct file type
+isDCMFile = false;
+while (~isDCMFile)
+    DCMImageExt = DCMImage(end-3:end);
+    if (~strcmp(DCMImageExt,'.dcm'))
+        fprintf('The file extension was incorrect. File extension must be .dcm.\n');
+        DCMImage = input('Please enter the file path for a MAT image, surrounded by single quotes with a file extension: ');
+    else
+        isDCMFile = true;
+    end
+end
+% test to make sure the image is found and loads correctly
 try    
     I = dicomread(DCMImage);
 catch % if filename/path was invalid, brings user back to main menu
@@ -34,7 +46,7 @@ while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
     upperLight = input('Please enter the upper light value: ');
     
     if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
-        fprintf('You have entered an incorrect value. Please follow the required paramenters\n'); 
+        fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
     end 
 end 
 
@@ -88,4 +100,5 @@ imageSNR = 20 * log10(r);
 fprintf('\n\nMean of the tonemapped image: %f', imageMean);
 fprintf('\nStandard Deviation of the tonemapped image: %f', imageStdDev);
 fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
+fprintf('\n');
 

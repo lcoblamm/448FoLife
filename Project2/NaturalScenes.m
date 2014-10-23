@@ -5,7 +5,20 @@
 
 % prompt user to enter image file path
 HDRImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
-%tests to make sure the image is found and loads correctly
+
+% check for correct file type
+isHDRFile = false;
+while (~isHDRFile)
+    HDRImageExt = HDRImage(end-3:end);
+    if (~strcmp(HDRImageExt,'.hdr'))
+        fprintf('The file extension was incorrect. File extension must be .hdr.\n');
+        HDRImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
+    else
+        isHDRFile = true;
+    end
+end
+
+% test to make sure the image is found and loads correctly
 try    
     I = hdrread(HDRImage);
 catch % if filename/path was invalid, brings user back to main menu
@@ -29,7 +42,7 @@ fprintf('\nAverage maximum for HDR image: %f', maxHDR);
 fprintf('\n\nLightness levels require an upper and lower value.');
 fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
 fprintf('\nRequired: 0.01 - 0.99hdrread(HDRImage);'); 
-%ensure user input is valid
+% ensure user input is valid
 lowerLight = -1;
 upperLight = -1;
 while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
@@ -38,7 +51,7 @@ while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
     upperLight = input('Please enter the upper light value: ');
     
     if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
-        fprintf('You have entered an incorrect value. Please follow the required paramenters\n'); 
+        fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
     end 
 end 
 
@@ -47,7 +60,7 @@ fprintf('\nSaturation');
 fprintf('\nRecommended: 1-3'); 
 fprintf('\nRequired: > 0'); 
 saturation = -1;
-%ensure input is valid
+% ensure input is valid
 while(saturation <= 0)
     saturation = input('\nPlease enter the saturation: ');
     
@@ -62,7 +75,7 @@ fprintf('\nRecommended: 2-4');
 fprintf('\nRequired: > 1'); 
 lowerTiles = -1;
 upperTiles = -1;
-%ensure input is valid
+% ensure input is valid
 while(lowerTiles <= 1 || upperTiles <= 1)
     
     lowerTiles = input('\nPlease enter the number of tile rows: ');
@@ -90,4 +103,5 @@ imageSNR = 20 * log10(r);
 fprintf('\n\nMean of the tonemapped image: %f', imageMean);
 fprintf('\nStandard Deviation of the tonemapped image: %f', imageStdDev);
 fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
+fprintf('\n');
 
