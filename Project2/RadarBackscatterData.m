@@ -19,19 +19,32 @@ end
 
 % test to make sure the image is found and loads correctly
 try    
-    load(MatImage);
-    % think we can get rid of this?
-    % imagesc((log10(A)));
+    S = load(MatImage);
 catch % if filename/path was invalid, brings user back to main menu
     fprintf('The image specified was invalid.\n');
     scriptOpen = 6;
     return
 end
-% can we get rid of this?
-% colormap(gray);
+
+% figure out whether image has 'Data' or 'A'
+hasA = isfield(S, 'A');
+hasData = isfield(S, 'Data');
+if (hasA == 1)
+    I = A;
+elseif (hasData == 1)
+    I = Data;
+else
+    fprintf('The .mat file does not have an image.\n');
+    return
+end;
+
+% potentially get rid of this
+figure;
+imagesc((log10(I)));
+colormap(gray);
 
 % calculate and print average minimum and average maximum intensity values 
-aveRadarImage = A(:);
+aveRadarImage = I(:);
 minRadarImage = min(aveRadarImage);
 maxRadarImage = max(aveRadarImage);
 fprintf('\nMinimum for Radar Backscatter data: %f', minRadarImage);
@@ -86,9 +99,9 @@ while(lowerTiles <= 1 || upperTiles <= 1)
 end
 
 % Duplicate the array so that it is three dimensions
-radarImageTM = A;
-radarImageTM(:,:,2) = A;
-radarImageTM(:,:,3) = A;
+radarImageTM = I;
+radarImageTM(:,:,2) = I;
+radarImageTM(:,:,3) = I;
 
 % tone map image and display
 tonemappedImage = tonemap(radarImageTM,'AdjustLightness', [lowerLight upperLight], 'AdjustSaturation', saturation ,'NumberOfTiles', [lowerTiles upperTiles]);
