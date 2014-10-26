@@ -3,8 +3,7 @@
 % 29 October 2014
 % Roxanne Calderon, Lynne Lammers, Christine Perinchery
 
-
-%prompt user to enter file path
+% prompt user to enter file path
 fitsImage = input('Please enter the file path for a FITS image, surrounded by single quotes with a file extension: ');
 
 % check for correct file type
@@ -49,12 +48,13 @@ while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
      upperLight = input('Please enter the upper light value: ');
       if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
         fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
-   catch
+      end
+  catch
     fprintf('Please enter a number.\n'); 
     lowerLight = -1;
     upperLight = -1;
-  end 
- end
+  end
+end
 
 %ask for saturation
 fprintf('\nSaturation');
