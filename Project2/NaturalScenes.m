@@ -43,7 +43,7 @@ fprintf('\nAverage maximum for HDR image: %f', maxHDR);
 fprintf('\n\nLightness levels require an upper and lower value.');
 fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
 fprintf('\nRequired: 0.01 - 0.99'); 
-% ensure user input is valids
+% ensure user input is valid
 lowerLight = -1;
 upperLight = -1;
 while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
