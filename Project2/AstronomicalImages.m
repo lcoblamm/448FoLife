@@ -26,6 +26,10 @@ catch % if filename/path was invalid, brings user back to main menu
     scriptOpen = 6;
     return
 end
+% potentially get rid of this
+figure;
+imagesc(I);
+colormap(gray);
 
 %calculate maximum and minimum intensity values
 %IT IS RETURNING NEGATIVE THIS DOES NOT BODE WELL
@@ -82,8 +86,8 @@ fprintf('\nRecommended: 2-4');
 fprintf('\nRequired: > 1'); 
 lowerTiles = -1;
 upperTiles = -1;
-%ensure input is valid
 
+%ensure input is valid
 while(lowerTiles <= 1 || upperTiles <= 1)
    try 
      lowerTiles = input('\nPlease enter the number of tile rows: ');
@@ -100,7 +104,7 @@ while(lowerTiles <= 1 || upperTiles <= 1)
 end
 
 
-%scale image to become positive
+%scale image so all values are positive
 T = (I-min(I(:))) ./ (max(I(:)-min(I(:))));
 fits3(:,:,1) = T;
 fits3(:,:,2) = T;

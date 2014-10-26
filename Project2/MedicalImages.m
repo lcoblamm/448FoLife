@@ -25,6 +25,10 @@ catch % if filename/path was invalid, brings user back to main menu
     scriptOpen = 6;
     return
 end
+% potentially get rid of this
+figure;
+imagesc(I);
+colormap(gray);
 
 % calculate and print minimum and maximum intensity values 
 DCMv = I(:);

@@ -26,6 +26,13 @@ catch % if filename/path was invalid, brings user back to main menu
     scriptOpen = 6;
     return
 end
+% potentially get rid of this
+Iv = I(:);
+maxI = max(Iv);
+scaledim = I/maxI;
+figure;
+imagesc(scaledim);
+colormap(gray);
 
 % calculate and print average minimum and average maximum intensity values 
 redHDR = I(:,:,1);
