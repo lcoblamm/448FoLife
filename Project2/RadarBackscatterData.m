@@ -93,7 +93,7 @@ radarImageTM(:,:,3) = A;
 % tone map image and display
 tonemappedImage = tonemap(radarImageTM,'AdjustLightness', [lowerLight upperLight], 'AdjustSaturation', saturation ,'NumberOfTiles', [lowerTiles upperTiles]);
 figure;
-imshow(tonemappedImage) 
+imshow(tonemappedImage);
 
 % calculate the mean, standard deviation, and signal to noise ratio
 aveToned = tonemappedImage(:);

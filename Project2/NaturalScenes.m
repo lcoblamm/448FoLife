@@ -4,7 +4,6 @@
 % Christine Perinchery, Lynne Lammers, Roxanne Calderon
 
 % prompt user to enter image file path
-try
 HDRImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
 
 % check for correct file type
