@@ -44,14 +44,22 @@ fprintf('\nRequired: 0.01 - 0.99');
 % ensure user input is valid
 lowerLight = -1;
 upperLight = -1;
-while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
-
-    lowerLight = input('\nPlease enter the lower light value: ');
-    upperLight = input('Please enter the upper light value: ');
-    
-    if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1)
-        fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
-    end 
+llNum = isnumeric(lowerLight); 
+ulNum = isnumeric(upperLight); 
+while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1 || ~llNum || ~ulNum)
+    try 
+      lowerLight = input('\nPlease enter the lower light value: ');
+      upperLight = input('Please enter the upper light value: ');
+      llNum = isnumeric(lowerLight); 
+       ulNum = isnumeric(upperLight); 
+      if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1 || ~llNum || ~ulNum)
+         fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
+      end
+    catch 
+      fprintf('You have entered an incorrect value. Please follow the required parameters.\n');
+      lowerLight = -1;
+      upperLight = -1;
+    end
 end 
 
 % prompt user to enter saturation value
@@ -59,13 +67,19 @@ fprintf('\nSaturation');
 fprintf('\nRecommended: 1-3'); 
 fprintf('\nRequired: > 0'); 
 saturation = -1;
+satNum = isnumeric(saturation); 
 %ensure input is valid
-while(saturation <= 0)
-    saturation = input('\nPlease enter the saturation: ');
-    
-    if(saturation <= 0)
-        fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
-    end
+while(saturation <= 0  || ~satNum) 
+    try
+      saturation = input('\nPlease enter the saturation: ');
+      satNum = isnumeric(saturation); 
+      if(saturation <= 0  || ~satNum) 
+          fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
+      end 
+    catch
+      fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
+      saturation = -1;
+    end    
 end 
 
 % prompt user to enter number of tiles
@@ -74,15 +88,23 @@ fprintf('\nRecommended: 2-4');
 fprintf('\nRequired: > 1'); 
 lowerTiles = -1;
 upperTiles = -1;
+ltNum = isnumeric(lowerTiles); 
+utNum = isnumeric(upperTiles);
 %ensure input is valid
-while(lowerTiles <= 1 || upperTiles <= 1)
-    
-    lowerTiles = input('\nPlease enter the number of tile rows: ');
-    upperTiles = input('Please enter the number of tile columns: ');
-
-    if(lowerTiles <= 1 || upperTiles <= 1)
-        fprintf('\nYou have entered an incorrect value. Please follow the required parameters. \n'); 
-    end
+while(lowerTiles <= 1 || upperTiles <= 1 || ~ltNum || ~utNum)
+    try
+      lowerTiles = input('\nPlease enter the number of tile rows: ');
+      upperTiles = input('Please enter the number of tile columns: ');
+      ltNum = isnumeric(lowerTiles); 
+      utNum = isnumeric(upperTiles);
+       if(lowerTiles <= 1 || upperTiles <= 1 || ~ltNum || ~utNum)
+          fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
+       end
+    catch
+      fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
+      lowerTiles = -1;
+      upperTiles = -1;
+    end 
 end
 
 % create m x n x 3 matrix by layering the dcm image 3 times
