@@ -31,7 +31,8 @@ catch % if filename/path was invalid, brings user back to main menu
     scriptOpen = 6;
     return
 end
-% potentially get rid of this
+
+% scale image and display pre-tonemapped image
 Iv = I(:);
 maxI = max(Iv);
 scaledim = I/maxI;

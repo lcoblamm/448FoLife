@@ -22,6 +22,7 @@ while (~isDCMFile)
         end
     end
 end
+
 % test to make sure the image is found and loads correctly
 try    
     I = dicomread(DCMImage);
@@ -30,7 +31,8 @@ catch % if filename/path was invalid, brings user back to main menu
     scriptOpen = 6;
     return
 end
-% potentially get rid of this
+
+% display pre-tonemapped image
 figure;
 imagesc(I);
 colormap(gray);
@@ -73,7 +75,7 @@ fprintf('\nRecommended: 1-3');
 fprintf('\nRequired: > 0'); 
 saturation = -1;
 satNum = isnumeric(saturation); 
-%ensure input is valid
+% ensure input is valid
 while(saturation <= 0  || ~satNum) 
     try
       saturation = input('\nPlease enter the saturation: ');
@@ -95,7 +97,7 @@ lowerTiles = -1;
 upperTiles = -1;
 ltNum = isnumeric(lowerTiles); 
 utNum = isnumeric(upperTiles);
-%ensure input is valid
+% ensure input is valid
 while(lowerTiles <= 1 || upperTiles <= 1 || ~ltNum || ~utNum)
     try
       lowerTiles = input('\nPlease enter the number of tile rows: ');

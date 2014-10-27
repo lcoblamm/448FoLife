@@ -6,11 +6,15 @@
 scriptOpen = 0;
 while (scriptOpen ~= 5) 
     clear all;
+    
+    % Prints menu
     fprintf('\n1. Space (.FITS)');
     fprintf('\n2. Medical (.DCM)'); 
     fprintf('\n3. Natural Scene (.HDR)');
     fprintf('\n4. RADAR Backscatter Data (.MAT)'); 
     fprintf('\n5. Exit'); 
+    
+    % Get user input
     try 
         scriptOpen = input('\n\nWhich image do you want to convert? ');
     catch

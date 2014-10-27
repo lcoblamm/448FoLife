@@ -43,12 +43,12 @@ else
     return
 end;
 
-% potentially get rid of this
+% display image pre-tonemapped
 figure;
 imagesc((log10(I)));
 colormap(gray);
 
-% calculate and print average minimum and average maximum intensity values 
+% calculate and print minimum and maximum intensity values 
 aveRadarImage = I(:);
 minRadarImage = min(aveRadarImage);
 maxRadarImage = max(aveRadarImage);
@@ -56,36 +56,38 @@ fprintf('\nMinimum for Radar Backscatter data: %f', minRadarImage);
 fprintf('\nMaximum for Radar Backscatter data: %f\n', maxRadarImage);
 
 % prompt user to enter lightness values
-  fprintf('\n\nLightness levels require an upper and lower value.');
-  fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
-  fprintf('\nRequired: 0.01 - 0.99'); 
-% ensure user input is valid
-  lowerLight = -1;
-  upperLight = -1;
-  llNum = isnumeric(lowerLight); 
-  ulNum = isnumeric(upperLight); 
-  while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1 || ~llNum || ~ulNum)
-      try
+fprintf('\n\nLightness levels require an upper and lower value.');
+fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
+fprintf('\nRequired: 0.01 - 0.99'); 
+% loop until user input is valid
+lowerLight = -1;
+upperLight = -1;
+llNum = isnumeric(lowerLight); 
+ulNum = isnumeric(upperLight); 
+while(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1 || ~llNum || ~ulNum)
+    try
         lowerLight = input('\nPlease enter the lower light value: ');
         upperLight = input('Please enter the upper light value: ');
         llNum = isnumeric(lowerLight); 
         ulNum = isnumeric(upperLight); 
-       if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1 || ~llNum || ~ulNum)
+        
+        if(lowerLight <= 0 || lowerLight >= 1 || upperLight <= 0 || upperLight >= 1 || ~llNum || ~ulNum)
             fprintf('You have entered an incorrect value. Please follow the required parameters.\n'); 
-       end
-     catch  
-       fprintf('You have entered an incorrect value. Please follow the required parameters.\n');
-       lowerLight = -1;
-       upperLight = -1;
-     end   
- end 
+        end
+        
+    catch  
+        fprintf('You have entered an incorrect value. Please follow the required parameters.\n');
+        lowerLight = -1;
+        upperLight = -1;
+    end   
+end 
 
 % prompt user to enter saturation value
- fprintf('\nSaturation');
- fprintf('\nRecommended: 1-3'); 
- fprintf('\nRequired: > 0'); 
- saturation = -1;
- satNum = isnumeric(saturation); 
+fprintf('\nSaturation');
+fprintf('\nRecommended: 1-3'); 
+fprintf('\nRequired: > 0'); 
+saturation = -1;
+satNum = isnumeric(saturation); 
 % ensure input is valid
  while(saturation <= 0  || ~satNum) 
      try
@@ -101,13 +103,13 @@ fprintf('\nMaximum for Radar Backscatter data: %f\n', maxRadarImage);
  end 
  
 % prompt user to enter number of tiles
- fprintf('\nNumber of Tiles require two values: number of rows and number of columns');
- fprintf('\nRecommended: 2-4'); 
- fprintf('\nRequired: > 1'); 
- lowerTiles = -1;
- upperTiles = -1;
- ltNum = isnumeric(lowerTiles); 
- utNum = isnumeric(upperTiles); 
+fprintf('\nNumber of Tiles require two values: number of rows and number of columns');
+fprintf('\nRecommended: 2-4'); 
+fprintf('\nRequired: > 1'); 
+lowerTiles = -1;
+upperTiles = -1;
+ltNum = isnumeric(lowerTiles); 
+utNum = isnumeric(upperTiles);
 % ensure input is valid
  while(lowerTiles <= 1 || upperTiles <= 1 || ~ltNum || ~utNum)
      try
@@ -119,7 +121,7 @@ fprintf('\nMaximum for Radar Backscatter data: %f\n', maxRadarImage);
            fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
        end
      catch
-        fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
+       fprintf('You have entered an incorrect value. Please follow the required parameters. \n'); 
        lowerTiles = -1;
        upperTiles = -1;
      end 
