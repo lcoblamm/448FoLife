@@ -37,6 +37,22 @@ try
       scriptOpen = 6;
       return
 end
+<<<<<<< HEAD
+=======
+
+% figure out whether image has 'Data' or 'A'
+hasA = isfield(S, 'A');
+hasData = isfield(S, 'Data');
+if (hasA == 1)
+    I = S.A;
+elseif (hasData == 1)
+    I = S.Data;
+else
+    fprintf('The .mat file does not have an image.\n');
+    return
+end;
+
+>>>>>>> 8ff5978e95a25bdaaa0d65a5f02fb47ebb81137e
 % potentially get rid of this
  figure;
  imagesc((log10(A)));
