@@ -19,26 +19,12 @@ end
 
 % test to make sure the image is found and loads correctly
 try    
-   S  =  load(MatImage);
-   hasA = isfield(S, 'A');
-   hasData = isfield(S, 'Data');
-  
-   if (hasA == 1)
-     load(MatImage); 
-      I = A;
-   elseif (hasData == 1)
-      I = Data;
-   else
-      fprintf('The .mat file does not have an image.\n');
-      return
-    end;
-    catch % if filename/path was invalid, brings user back to main menu
-      fprintf('The image specified was invalid.\n');
-      scriptOpen = 6;
-      return
+    S = load(MatImage);
+catch % if filename/path was invalid, brings user back to main menu
+    fprintf('The image specified was invalid.\n');
+    scriptOpen = 6;
+    return
 end
-<<<<<<< HEAD
-=======
 
 % figure out whether image has 'Data' or 'A'
 hasA = isfield(S, 'A');
@@ -52,19 +38,18 @@ else
     return
 end;
 
->>>>>>> 8ff5978e95a25bdaaa0d65a5f02fb47ebb81137e
 % potentially get rid of this
- figure;
- imagesc((log10(A)));
-% colormap(gray);
- 
+figure;
+imagesc((log10(I)));
+colormap(gray);
+
 % calculate and print average minimum and average maximum intensity values 
- aveRadarImage = I(:);
- minRadarImage = min(aveRadarImage);
- maxRadarImage = max(aveRadarImage);
- fprintf('\nMinimum for Radar Backscatter data: %f', minRadarImage);
- fprintf('\nMaximum for Radar Backscatter data: %f\n', maxRadarImage);
- 
+aveRadarImage = I(:);
+minRadarImage = min(aveRadarImage);
+maxRadarImage = max(aveRadarImage);
+fprintf('\nMinimum for Radar Backscatter data: %f', minRadarImage);
+fprintf('\nMaximum for Radar Backscatter data: %f\n', maxRadarImage);
+
 % prompt user to enter lightness values
   fprintf('\n\nLightness levels require an upper and lower value.');
   fprintf('\nRecommended: Lower: 0.01 - 0.1  Upper: 0.9 - 0.99'); 
@@ -139,12 +124,12 @@ end;
 radarImageTM = I;
 radarImageTM(:,:,2) = I;
 radarImageTM(:,:,3) = I;
- 
+
 % tone map image and display
 tonemappedImage = tonemap(radarImageTM,'AdjustLightness', [lowerLight upperLight], 'AdjustSaturation', saturation ,'NumberOfTiles', [lowerTiles upperTiles]);
 figure;
 imshow(tonemappedImage);
- 
+
 % calculate the mean, standard deviation, and signal to noise ratio
 aveToned = tonemappedImage(:);
 imageMean = mean(aveToned(:));
