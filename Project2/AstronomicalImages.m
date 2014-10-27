@@ -9,12 +9,17 @@ fitsImage = input('Please enter the file path for a FITS image, surrounded by si
 % check for correct file type
 isFITSFile = false;
 while (~isFITSFile)
-    fitsImageExt = fitsImage(end-4:end);
-    if (~strcmp(fitsImageExt,'.fits'))
+    if (length(fitsImage) < 6)
         fprintf('The file extension was incorrect. File extension must be .fits.\n');
         fitsImage = input('Please enter the file path for a FITS image, surrounded by single quotes with a file extension: ');
     else
-        isFITSFile = true;
+        fitsImageExt = fitsImage(end-4:end);
+        if (~strcmp(fitsImageExt,'.fits'))
+            fprintf('The file extension was incorrect. File extension must be .fits.\n');
+            fitsImage = input('Please enter the file path for a FITS image, surrounded by single quotes with a file extension: ');
+        else
+            isFITSFile = true;
+        end
     end
 end
 
@@ -133,4 +138,5 @@ fprintf('\nSignal-To-Noise Ratio of the tonemapped image: %f', imageSNR);
 fprintf('\n'); 
 
 %display image
+figure;
 imshow(tonemappedImage); 

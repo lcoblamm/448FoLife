@@ -5,7 +5,7 @@
 
 scriptOpen = 0;
 while (scriptOpen ~= 5) 
-    
+    clear all;
     fprintf('\n1. Space (.FITS)');
     fprintf('\n2. Medical (.DCM)'); 
     fprintf('\n3. Natural Scene (.HDR)');

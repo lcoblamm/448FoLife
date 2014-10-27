@@ -9,12 +9,17 @@ DCMImage = input('Please enter the file path for a Dicom Medical Image, surround
 % check for correct file type
 isDCMFile = false;
 while (~isDCMFile)
-    DCMImageExt = DCMImage(end-3:end);
-    if (~strcmp(DCMImageExt,'.dcm'))
+    if (length(DCMImage) < 5)
         fprintf('The file extension was incorrect. File extension must be .dcm.\n');
         DCMImage = input('Please enter the file path for a MAT image, surrounded by single quotes with a file extension: ');
     else
-        isDCMFile = true;
+        DCMImageExt = DCMImage(end-3:end);
+        if (~strcmp(DCMImageExt,'.dcm'))
+            fprintf('The file extension was incorrect. File extension must be .dcm.\n');
+            DCMImage = input('Please enter the file path for a MAT image, surrounded by single quotes with a file extension: ');
+        else
+            isDCMFile = true;
+        end
     end
 end
 % test to make sure the image is found and loads correctly

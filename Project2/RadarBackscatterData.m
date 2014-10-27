@@ -8,12 +8,17 @@ MatImage = input('Please enter the file path for a MAT image, surrounded by sing
 % check for correct file type
 isMatFile = false;
 while (~isMatFile)
-    MatImageExt = MatImage(end-3:end);
-    if (~strcmp(MatImageExt,'.mat'))
+    if (length(MatImage) < 5)
         fprintf('The file extension was incorrect. File extension must be .mat.\n');
         MatImage = input('Please enter the file path for a MAT image, surrounded by single quotes with a file extension: ');
     else
-        isMatFile = true;
+        MatImageExt = MatImage(end-3:end);
+        if (~strcmp(MatImageExt,'.mat'))
+            fprintf('The file extension was incorrect. File extension must be .mat.\n');
+            MatImage = input('Please enter the file path for a MAT image, surrounded by single quotes with a file extension: ');
+        else
+            isMatFile = true;
+        end
     end
 end
 

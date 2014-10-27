@@ -9,12 +9,17 @@ HDRImage = input('Please enter the file path for an HDR image, surrounded by sin
 % check for correct file type
 isHDRFile = false;
 while (~isHDRFile)
-    HDRImageExt = HDRImage(end-3:end);
-    if (~strcmp(HDRImageExt,'.hdr'))
+    if (length(HDRImage) < 5)
         fprintf('The file extension was incorrect. File extension must be .hdr.\n');
         HDRImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
     else
-        isHDRFile = true;
+        HDRImageExt = HDRImage(end-3:end);
+        if (~strcmp(HDRImageExt,'.hdr'))
+            fprintf('The file extension was incorrect. File extension must be .hdr.\n');
+            HDRImage = input('Please enter the file path for an HDR image, surrounded by single quotes with a file extension: ');
+        else
+            isHDRFile = true;
+        end
     end
 end
 
