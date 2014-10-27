@@ -30,9 +30,9 @@ end
 hasA = isfield(S, 'A');
 hasData = isfield(S, 'Data');
 if (hasA == 1)
-    I = A;
+    I = S.A;
 elseif (hasData == 1)
-    I = Data;
+    I = S.Data;
 else
     fprintf('The .mat file does not have an image.\n');
     return
